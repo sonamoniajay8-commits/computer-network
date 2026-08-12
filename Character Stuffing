@@ -1,0 +1,34 @@
+import java.util.Scanner;
+
+public class CharacterStuffing {
+
+    public static String stuff(String data, char flag, char esc) {
+        StringBuilder result = new StringBuilder();
+
+        for (char ch : data.toCharArray()) {
+            if (ch == flag || ch == esc) {
+                result.append(esc);
+            }
+            result.append(ch);
+        }
+
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        char flag = 'F';
+        char esc = 'E';
+
+        System.out.print("Enter data: ");
+        String data = sc.nextLine();
+
+        String stuffedData = stuff(data, flag, esc);
+
+        System.out.println("Original data : " + data);
+        System.out.println("Stuffed data  : " + flag + stuffedData + flag);
+
+        sc.close();
+    }
+}
