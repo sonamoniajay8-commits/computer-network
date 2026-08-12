@@ -1,0 +1,57 @@
+import java.util.Scanner;
+
+public class CRC {
+
+    static String xor(String a, String b) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 1; i < b.length(); i++) {
+            result.append(a.charAt(i) == b.charAt(i) ? '0' : '1');
+        }
+
+        return result.toString();
+    }
+
+    static String divide(String data, String generator) {
+        int genLength = generator.length();
+        String temp = data.substring(0, genLength);
+
+        for (int i = genLength; i <= data.length(); i++) {
+
+            if (temp.charAt(0) == '1') {
+                temp = xor(generator, temp);
+            } else {
+                temp = xor("0".repeat(genLength), temp);
+            }
+
+            if (i < data.length()) {
+                temp += data.charAt(i);
+            }
+        }
+
+        return temp;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter data: ");
+        String data = sc.nextLine();
+
+        System.out.print("Enter generator: ");
+        String generator = sc.nextLine();
+
+        int zeros = generator.length() - 1;
+
+        String appendedData = data + "0".repeat(zeros);
+
+        String remainder = divide(appendedData, generator);
+
+        String transmittedData = data + remainder;
+
+        System.out.println("CRC Remainder   : " + remainder);
+        System.out.println("Transmitted Data: " + transmittedData);
+
+        sc.close();
+    }
+}
