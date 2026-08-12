@@ -1,0 +1,41 @@
+//https://chatgpt.com/s/t_6a7c0eb5665c819197dffcf4641fd510
+import java.util.Scanner;
+
+public class BitStuffing {
+
+    public static String bitStuff(String data) {
+        StringBuilder result = new StringBuilder();
+        int count = 0;
+
+        for (char bit : data.toCharArray()) {
+            result.append(bit);
+
+            if (bit == '1') {
+                count++;
+
+                if (count == 5) {
+                    result.append('0');
+                    count = 0;
+                }
+            } else {
+                count = 0;
+            }
+        }
+
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter binary data: ");
+        String data = sc.nextLine();
+
+        String stuffedData = bitStuff(data);
+
+        System.out.println("Original data : " + data);
+        System.out.println("Stuffed data  : " + stuffedData);
+
+        sc.close();
+    }
+}
